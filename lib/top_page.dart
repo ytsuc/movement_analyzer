@@ -5,7 +5,7 @@ import 'package:movement_analyzer/accelerometer_display.dart';
 import 'package:movement_analyzer/current_position_map.dart';
 import 'package:movement_analyzer/geolocation_display.dart';
 import 'package:movement_analyzer/geolocator_bloc.dart';
-import 'package:movement_analyzer/tick_interval_Slider.dart';
+import 'package:movement_analyzer/timer_interval_Slider.dart';
 import 'package:movement_analyzer/timer_geolocation_display.dart';
 import 'package:provider/provider.dart';
 
@@ -61,12 +61,12 @@ class TopPage extends StatelessWidget {
                           Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                for (var item in <Widget>[
-                                  const GeolocationDisplay(),
-                                  const AccelerometerDisplay(),
-                                  const AccelStateDisplay(),
+                                for (var item in const <Widget>[
+                                  GeolocationDisplay(),
+                                  AccelerometerDisplay(),
+                                  AccelStateDisplay(),
                                   TimerIntervalSlider(),
-                                  const TimerGeolocationDisplay(),
+                                  TimerGeolocationDisplay(),
                                 ])
                                   Container(
                                     child: item,

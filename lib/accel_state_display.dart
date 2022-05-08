@@ -10,7 +10,7 @@ class AccelStateDisplay extends ParameterDisplay<AccelerometerBloc> {
   const AccelStateDisplay({Key? key}) : super(key: key);
 
   @override
-  Text getParameterText(param) {
+  Widget getParameterText(param) {
     var text = '';
     if (param is SensorEvent) {
       final x = param.data[0];
@@ -18,7 +18,8 @@ class AccelStateDisplay extends ParameterDisplay<AccelerometerBloc> {
       final z = param.data[2];
       final point = sqrt((pow(x, 2) + pow(y, 2) + pow(z, 2)));
 
-      if (point < 2) {
+      const movementThreshold = 2;
+      if (point < movementThreshold) {
         text = '普通です';
       } else {
         text = '激しい加速！';

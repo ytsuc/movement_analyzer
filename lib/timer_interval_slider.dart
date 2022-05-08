@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movement_analyzer/geolocator_bloc.dart';
 import 'package:provider/provider.dart';
 
+@immutable
 class TimerIntervalSlider extends StatefulWidget {
   const TimerIntervalSlider({Key? key}) : super(key: key);
 

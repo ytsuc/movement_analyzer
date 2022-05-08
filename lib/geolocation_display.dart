@@ -8,7 +8,7 @@ class GeolocationDisplay extends ParameterDisplay<GeolocatorBloc> {
   const GeolocationDisplay({Key? key}) : super(key: key);
 
   @override
-  Text getParameterText(param) {
+  Widget getParameterText(param) {
     if (param is Position) {
       final longitude = param.longitude;
       final latitude = param.latitude;
