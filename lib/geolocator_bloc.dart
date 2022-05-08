@@ -90,5 +90,6 @@ class GeolocatorBloc extends Bloc {
   void dispose() {
     _positionController.close();
     _currentPositionSubscription.cancel();
+    _timerPositionController.close();
   }
 }
