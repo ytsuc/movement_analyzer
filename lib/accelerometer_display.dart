@@ -8,13 +8,19 @@ class AccelerometerDisplay extends ParameterDisplay<AccelerometerBloc> {
   const AccelerometerDisplay({Key? key}) : super(key: key);
 
   @override
-  Text getParameterText(param) {
+  Widget getParameterText(param) {
     final sensorEvent = param;
     if (sensorEvent is SensorEvent) {
       final x = sensorEvent.data[0];
       final y = sensorEvent.data[1];
       final z = sensorEvent.data[2];
-      return Text('x: $x, y: $y, z: $z');
+      return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text('x: $x'),
+            Text('y: $y'),
+            Text('z: $z'),
+          ]);
     } else {
       return const Text('');
     }

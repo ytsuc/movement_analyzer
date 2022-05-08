@@ -6,10 +6,6 @@ import 'package:provider/provider.dart';
 
 @immutable
 class CurrentPositionMap extends StatelessWidget {
-  final _map = const GoogleMap(
-    initialCameraPosition: CameraPosition(target: LatLng(0, 0)),
-  );
-
   const CurrentPositionMap({Key? key}) : super(key: key);
 
   @override

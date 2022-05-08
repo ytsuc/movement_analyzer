@@ -20,5 +20,5 @@ abstract class ParameterDisplay<T extends Bloc> extends StatelessWidget {
             }));
   }
 
-  Text getParameterText(param);
+  Widget getParameterText(param);
 }

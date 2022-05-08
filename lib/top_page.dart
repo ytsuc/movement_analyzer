@@ -58,10 +58,15 @@ class TopPage extends StatelessWidget {
                         children: <Widget>[
                           Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: const [
-                                GeolocationDisplay(),
-                                AccelerometerDisplay(),
-                                AccelStateDisplay()
+                              children: [
+                                for (var item in const <Widget>[
+                                  GeolocationDisplay(),
+                                  AccelerometerDisplay(),
+                                  AccelStateDisplay()
+                                ])
+                                  Container(
+                                    child: item,
+                                  ),
                               ]),
                           const CurrentPositionMap()
                         ],

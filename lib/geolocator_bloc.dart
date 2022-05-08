@@ -1,5 +1,6 @@
 import 'dart:async';
 
+//import 'package:flutter/scheduler.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:movement_analyzer/bloc.dart';
 import 'package:rxdart/rxdart.dart';
@@ -7,12 +8,15 @@ import 'package:rxdart/rxdart.dart';
 class GeolocatorBloc extends Bloc {
   final _loadingController = BehaviorSubject<bool>();
   final _positionController = BehaviorSubject<Position>();
+  final _tickPositionController = BehaviorSubject<Position>();
 
   late final StreamSubscription<Position> _currentPositionSubscription;
 
   @override
   Stream<Position> get stream => _positionController.stream;
   Stream<bool> get isLoading => _loadingController.stream;
+  Stream<Position> get tickStream => _tickPositionController.stream;
+  // final Timer _ticker = Timer(const Duration(seconds: 5), ()=>
 
 /*
   GeolocatorBloc() {
