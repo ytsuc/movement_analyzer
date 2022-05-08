@@ -25,4 +25,9 @@ class AccelerometerDisplay extends ParameterDisplay<AccelerometerBloc> {
       return const Text('');
     }
   }
+
+  @override
+  Stream getStream(AccelerometerBloc bloc) {
+    return bloc.stream;
+  }
 }

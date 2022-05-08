@@ -12,9 +12,11 @@ class AccelerometerBloc extends Bloc {
   @override
   Stream<SensorEvent> get stream => _sensorEventController.stream;
 
+  // 初期化に非同期処理が必要なのでFactoryパターンでのインスタンス生成を強制する
   AccelerometerBloc._();
 
-  static Future<AccelerometerBloc> create() async {
+  static Future<AccelerometerBloc> create(
+      {Duration duration = const Duration(seconds: 3)}) async {
     final instance = AccelerometerBloc._();
     await instance._init();
     return instance;

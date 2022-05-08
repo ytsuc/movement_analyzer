@@ -6,34 +6,32 @@ import 'package:movement_analyzer/bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
 class GeolocatorBloc extends Bloc {
-  final _loadingController = BehaviorSubject<bool>();
   final _positionController = BehaviorSubject<Position>();
-  final _tickPositionController = BehaviorSubject<Position>();
+  final _timerPositionController = BehaviorSubject<Position>();
 
   late final StreamSubscription<Position> _currentPositionSubscription;
 
   @override
   Stream<Position> get stream => _positionController.stream;
-  Stream<bool> get isLoading => _loadingController.stream;
-  Stream<Position> get tickStream => _tickPositionController.stream;
-  // final Timer _ticker = Timer(const Duration(seconds: 5), ()=>
+  Stream<Position> get timerStream => _timerPositionController.stream;
+  Timer? _timer;
 
-/*
-  GeolocatorBloc() {
-    _subscribeTakeCurrentPosition();
-  }
-  */
-
+  // 初期化に非同期処理が必要なのでFactoryパターンでのインスタンス生成を強制する
   GeolocatorBloc._();
 
-  static Future<GeolocatorBloc> create() async {
+  static Future<GeolocatorBloc> create(
+      {Duration duration = const Duration(seconds: 5)}) async {
     final instance = GeolocatorBloc._();
     await instance._subscribeTakeCurrentPosition();
+    instance._timer = Timer.periodic(duration, instance._timerFunction);
     return instance;
   }
 
-  void sinkCurrentPosition(Position position) {
-    _positionController.sink.add(position);
+  void _timerFunction(Timer timer) async {
+    final pos = await _getCurrentPosition();
+    if (pos is Position) {
+      _timerPositionController.sink.add(pos);
+    }
   }
 
   Future<bool> _checkPermission() async {
@@ -61,21 +59,23 @@ class GeolocatorBloc extends Bloc {
         Geolocator.getPositionStream(locationSettings: locationSettings)
             .asBroadcastStream()
             .listen((Position position) {
-      sinkCurrentPosition(position);
+      _positionController.sink.add(position);
     });
   }
 
-  void _takeCurrentPosition() async {
-    _loadingController.sink.add(true);
+  Future<Position?> _getCurrentPosition() async {
     if (await _checkPermission() == false) {
-      _loadingController.sink.add(false);
-      return;
+      return null;
     }
     Position currentPosition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
 
-    _loadingController.sink.add(false);
-    _positionController.sink.add(currentPosition);
+    return currentPosition;
+  }
+
+  void changeTimerInterval(int seconds) {
+    _timer?.cancel();
+    _timer = Timer.periodic(Duration(seconds: seconds), _timerFunction);
   }
 
   void resumeListenCurrentPosition() {
@@ -88,7 +88,6 @@ class GeolocatorBloc extends Bloc {
 
   @override
   void dispose() {
-    _loadingController.close();
     _positionController.close();
     _currentPositionSubscription.cancel();
   }

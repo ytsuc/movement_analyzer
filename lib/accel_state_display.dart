@@ -8,6 +8,7 @@ import 'package:movement_analyzer/parameter_display.dart';
 @immutable
 class AccelStateDisplay extends ParameterDisplay<AccelerometerBloc> {
   const AccelStateDisplay({Key? key}) : super(key: key);
+
   @override
   Text getParameterText(param) {
     var text = '';
@@ -25,5 +26,10 @@ class AccelStateDisplay extends ParameterDisplay<AccelerometerBloc> {
     }
 
     return Text(text);
+  }
+
+  @override
+  Stream getStream(AccelerometerBloc bloc) {
+    return bloc.stream;
   }
 }

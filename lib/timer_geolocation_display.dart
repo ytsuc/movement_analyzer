@@ -1,18 +1,19 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:movement_analyzer/geolocation_display.dart';
 import 'package:movement_analyzer/geolocator_bloc.dart';
-import 'package:movement_analyzer/parameter_display.dart';
 
 @immutable
-class GeolocationDisplay extends ParameterDisplay<GeolocatorBloc> {
-  const GeolocationDisplay({Key? key}) : super(key: key);
+class TimerGeolocationDisplay extends GeolocationDisplay {
+  const TimerGeolocationDisplay({Key? key}) : super(key: key);
 
   @override
   Text getParameterText(param) {
     if (param is Position) {
       final longitude = param.longitude;
       final latitude = param.latitude;
-      return Text('Longitude: $longitude, Latitude: $latitude');
+      final now = DateTime.now().toString();
+      return Text('Longitude: $longitude, Latitude: $latitude\n$now');
     } else {
       return const Text('');
     }
@@ -20,6 +21,6 @@ class GeolocationDisplay extends ParameterDisplay<GeolocatorBloc> {
 
   @override
   Stream getStream(GeolocatorBloc bloc) {
-    return bloc.stream;
+    return bloc.timerStream;
   }
 }
