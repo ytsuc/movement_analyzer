@@ -2,9 +2,10 @@ import 'dart:async';
 
 import 'package:flutter_sensors/flutter_sensors.dart';
 import 'package:movement_analyzer/bloc.dart';
+import 'package:rxdart/rxdart.dart';
 
 class AccelerometerBloc extends Bloc {
-  final _sensorEventController = StreamController<SensorEvent>();
+  final _sensorEventController = BehaviorSubject<SensorEvent>();
   StreamSubscription<SensorEvent>? _accelerometerStreamSubscription;
   bool _initialized = false;
 
@@ -15,11 +16,11 @@ class AccelerometerBloc extends Bloc {
 
   static Future<AccelerometerBloc> create() async {
     final instance = AccelerometerBloc._();
-    instance._init();
+    await instance._init();
     return instance;
   }
 
-  void _init() async {
+  Future<void> _init() async {
     if (_initialized || await checkPermission() == false) {
       return;
     }
@@ -29,7 +30,8 @@ class AccelerometerBloc extends Bloc {
       interval: Sensors.SENSOR_DELAY_GAME,
     );
 
-    _accelerometerStreamSubscription = stream.listen((SensorEvent sensorEvent) {
+    _accelerometerStreamSubscription =
+        stream.asBroadcastStream().listen((SensorEvent sensorEvent) {
       _sensorEventController.sink.add(sensorEvent);
     });
 

@@ -2,10 +2,11 @@ import 'dart:async';
 
 import 'package:geolocator/geolocator.dart';
 import 'package:movement_analyzer/bloc.dart';
+import 'package:rxdart/rxdart.dart';
 
 class GeolocatorBloc extends Bloc {
-  final _loadingController = StreamController<bool>();
-  final _positionController = StreamController<Position>();
+  final _loadingController = BehaviorSubject<bool>();
+  final _positionController = BehaviorSubject<Position>();
 
   late final StreamSubscription<Position> _currentPositionSubscription;
 
@@ -13,8 +14,18 @@ class GeolocatorBloc extends Bloc {
   Stream<Position> get stream => _positionController.stream;
   Stream<bool> get isLoading => _loadingController.stream;
 
+/*
   GeolocatorBloc() {
     _subscribeTakeCurrentPosition();
+  }
+  */
+
+  GeolocatorBloc._();
+
+  static Future<GeolocatorBloc> create() async {
+    final instance = GeolocatorBloc._();
+    await instance._subscribeTakeCurrentPosition();
+    return instance;
   }
 
   void sinkCurrentPosition(Position position) {
@@ -32,16 +43,19 @@ class GeolocatorBloc extends Bloc {
     return true;
   }
 
-  void _subscribeTakeCurrentPosition() async {
+  Future<void> _subscribeTakeCurrentPosition() async {
     if (await _checkPermission() == false) {
       return;
     }
+
     const locationSettings = LocationSettings(
       accuracy: LocationAccuracy.high,
       distanceFilter: 0,
     );
+
     _currentPositionSubscription =
         Geolocator.getPositionStream(locationSettings: locationSettings)
+            .asBroadcastStream()
             .listen((Position position) {
       sinkCurrentPosition(position);
     });
@@ -72,5 +86,6 @@ class GeolocatorBloc extends Bloc {
   void dispose() {
     _loadingController.close();
     _positionController.close();
+    _currentPositionSubscription.cancel();
   }
 }

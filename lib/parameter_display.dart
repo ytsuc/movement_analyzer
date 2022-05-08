@@ -15,7 +15,7 @@ abstract class ParameterDisplay<T extends Bloc> extends StatelessWidget {
               if (param != null) {
                 return getParameterText(param);
               } else {
-                return const Text('Failed to get Data');
+                return const Text('Loading...');
               }
             }));
   }
