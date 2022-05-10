@@ -2,7 +2,7 @@ import 'dart:async';
 
 //import 'package:flutter/scheduler.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:movement_analyzer/bloc.dart';
+import 'package:movement_analyzer/bloc/bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
 class GeolocatorBloc extends Bloc {

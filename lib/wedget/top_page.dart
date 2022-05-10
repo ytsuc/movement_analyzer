@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:movement_analyzer/accel_state_display.dart';
-import 'package:movement_analyzer/accelerometer_bloc.dart';
-import 'package:movement_analyzer/accelerometer_display.dart';
-import 'package:movement_analyzer/current_position_map.dart';
-import 'package:movement_analyzer/geolocation_display.dart';
-import 'package:movement_analyzer/geolocator_bloc.dart';
+import 'package:movement_analyzer/wedget/accel_state_display.dart';
+import 'package:movement_analyzer/bloc/accelerometer_bloc.dart';
+import 'package:movement_analyzer/wedget/accelerometer_display.dart';
+import 'package:movement_analyzer/wedget/current_position_map.dart';
+import 'package:movement_analyzer/wedget/geolocation_display.dart';
+import 'package:movement_analyzer/bloc/geolocator_bloc.dart';
 import 'package:movement_analyzer/timer_interval_Slider.dart';
-import 'package:movement_analyzer/timer_geolocation_display.dart';
+import 'package:movement_analyzer/wedget/timer_geolocation_display.dart';
 import 'package:provider/provider.dart';
 
 class Blocs {

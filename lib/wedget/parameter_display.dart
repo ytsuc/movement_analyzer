@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movement_analyzer/bloc.dart';
+import 'package:movement_analyzer/bloc/bloc.dart';
 import 'package:provider/provider.dart';
 
 abstract class ParameterDisplay<T extends Bloc> extends StatelessWidget {

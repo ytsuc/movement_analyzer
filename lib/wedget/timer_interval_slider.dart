@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movement_analyzer/geolocator_bloc.dart';
+import 'package:movement_analyzer/bloc/geolocator_bloc.dart';
 import 'package:provider/provider.dart';
 
 @immutable

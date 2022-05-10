@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:movement_analyzer/geolocator_bloc.dart';
+import 'package:movement_analyzer/bloc/geolocator_bloc.dart';
 import 'package:provider/provider.dart';
 
 @immutable

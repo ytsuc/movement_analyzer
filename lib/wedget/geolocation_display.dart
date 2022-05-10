@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:movement_analyzer/geolocator_bloc.dart';
-import 'package:movement_analyzer/parameter_display.dart';
+import 'package:movement_analyzer/bloc/geolocator_bloc.dart';
+import 'package:movement_analyzer/wedget/parameter_display.dart';
 
 @immutable
 class GeolocationDisplay extends ParameterDisplay<GeolocatorBloc> {

@@ -39,6 +39,7 @@ dependencies:
   flutter_sensors: ^1.0.1
   rxdart: ^0.27.3
   google_maps_flutter: ^2.1.4
+  sqflite: ^2.0.2+1
 
 dev_dependencies:
   flutter_test:

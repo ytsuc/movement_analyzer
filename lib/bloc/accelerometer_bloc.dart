@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_sensors/flutter_sensors.dart';
-import 'package:movement_analyzer/bloc.dart';
+import 'package:movement_analyzer/bloc/bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
 class AccelerometerBloc extends Bloc {

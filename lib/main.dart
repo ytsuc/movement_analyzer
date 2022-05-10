@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movement_analyzer/top_page.dart';
+import 'package:movement_analyzer/wedget/top_page.dart';
 
 void main() {
   runApp(const MyApp());

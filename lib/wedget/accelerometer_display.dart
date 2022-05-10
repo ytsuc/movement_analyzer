@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sensors/flutter_sensors.dart';
-import 'package:movement_analyzer/accelerometer_bloc.dart';
-import 'package:movement_analyzer/parameter_display.dart';
+import 'package:movement_analyzer/bloc/accelerometer_bloc.dart';
+import 'package:movement_analyzer/wedget/parameter_display.dart';
 
 @immutable
 class AccelerometerDisplay extends ParameterDisplay<AccelerometerBloc> {
