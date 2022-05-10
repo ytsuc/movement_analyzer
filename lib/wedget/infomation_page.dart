@@ -8,6 +8,7 @@ import 'package:movement_analyzer/wedget/accelerometer_display.dart';
 import 'package:movement_analyzer/wedget/current_position_map.dart';
 import 'package:movement_analyzer/wedget/geolocation_display.dart';
 import 'package:movement_analyzer/bloc/geolocator_bloc.dart';
+import 'package:movement_analyzer/wedget/movement_list.dart';
 import 'package:movement_analyzer/wedget/timer_interval_slider.dart';
 import 'package:movement_analyzer/wedget/timer_geolocation_display.dart';
 import 'package:provider/provider.dart';
@@ -52,7 +53,7 @@ class InfomationPage extends StatelessWidget {
                   ),
                 ],
                 child: DefaultTabController(
-                  length: 2,
+                  length: 3,
                   child: Scaffold(
                       appBar: AppBar(
                         title: const Text('Movement Analyzer'),
@@ -61,7 +62,8 @@ class InfomationPage extends StatelessWidget {
                           Tab(
                             icon: Icon(Icons.map),
                             text: '地図',
-                          )
+                          ),
+                          Tab(icon: Icon(Icons.list), text: '測定結果履歴')
                         ]),
                       ),
                       body: TabBarView(
@@ -80,7 +82,8 @@ class InfomationPage extends StatelessWidget {
                                     child: item,
                                   ),
                               ]),
-                          const CurrentPositionMap()
+                          const CurrentPositionMap(),
+                          const MovementList(),
                         ],
                       )),
                 ));
