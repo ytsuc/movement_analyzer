@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movement_analyzer/bloc/login_user.dart';
+import 'package:movement_analyzer/database/database_manager.dart';
+import 'package:movement_analyzer/database/movement_recorder.dart';
 import 'package:movement_analyzer/wedget/accel_state_display.dart';
 import 'package:movement_analyzer/bloc/accelerometer_bloc.dart';
 import 'package:movement_analyzer/wedget/accelerometer_display.dart';
@@ -32,6 +35,11 @@ class InfomationPage extends StatelessWidget {
           final blocs = snapshot.data;
           if (snapshot.connectionState == ConnectionState.done &&
               blocs != null) {
+            MovementRecorder(
+                Provider.of<LoginUser>(context, listen: false).id,
+                blocs.accelerometerBloc,
+                blocs.geolocatorBloc,
+                Provider.of<DatabaseManager>(context, listen: false));
             return MultiProvider(
                 providers: [
                   Provider<GeolocatorBloc>(

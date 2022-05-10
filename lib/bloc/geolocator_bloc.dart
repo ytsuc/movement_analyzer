@@ -29,6 +29,10 @@ class GeolocatorBloc extends Bloc {
 
   void _timerFunction(Timer timer) async {
     final pos = await _getCurrentPosition();
+    if (_timerPositionController.isClosed) {
+      _timer?.cancel();
+      return;
+    }
     if (pos is Position) {
       _timerPositionController.sink.add(pos);
     }

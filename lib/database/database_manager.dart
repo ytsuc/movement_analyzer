@@ -1,3 +1,4 @@
+import 'package:movement_analyzer/database/movement.dart';
 import 'package:movement_analyzer/database/user.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -33,6 +34,25 @@ class DatabaseManager {
     }
 
     return "";
+  }
+
+  Future<void> saveMovement(Movement movement) async {
+    final db = _database;
+    if (db == null) return;
+
+    await db.insert('movement', movement.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+
+    return;
+  }
+
+  Future<List<Map<String, Object?>>> getMovements(String userId) async {
+    final db = _database;
+    if (db == null) return List.empty();
+
+    final result =
+        await db.query('movement', where: 'user_id = ?', whereArgs: [userId]);
+    return result;
   }
 
   Future<void> _connect() async {

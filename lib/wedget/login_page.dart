@@ -70,9 +70,28 @@ class _LoginPageState extends State<LoginPage> {
                       final loginUser =
                           Provider.of<LoginUser>(context, listen: false);
                       loginUser.id = userId;
-                      await Navigator.of(context).pushReplacement(
+
+                      // Provider(MultiProvider)を再度Pushすべし
+                      /*
+                      await Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => const InfomationPage()),
+                      );
+                      */
+                      final dbManager =
+                          Provider.of<DatabaseManager>(context, listen: false);
+                      final user =
+                          Provider.of<LoginUser>(context, listen: false);
+                      await Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) {
-                          return const InfomationPage();
+                          return MultiProvider(
+                            providers: [
+                              Provider<DatabaseManager>(
+                                  create: (context) => dbManager),
+                              Provider<LoginUser>(create: (context) => user)
+                            ],
+                            child: const InfomationPage(),
+                          );
                         }),
                       );
                     }

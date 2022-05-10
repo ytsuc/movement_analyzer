@@ -1,11 +1,27 @@
-class Movement {
-  final String userId;
-  final double longitude;
-  final double latitude;
-  final double acceleration;
-  final DateTime timestamp;
+import 'dart:math';
 
-  Movement(
+import 'package:flutter_sensors/flutter_sensors.dart';
+import 'package:geolocator/geolocator.dart';
+
+class Movement {
+  String userId;
+  double longitude;
+  double latitude;
+  double acceleration;
+  DateTime timestamp;
+
+  factory Movement(
+      {required String userId,
+      required Position position,
+      required SensorEvent sensorEvent}) {
+    return Movement.fromDigit(
+        userId: userId,
+        longitude: position.longitude,
+        latitude: position.latitude,
+        acceleration: _calcAcceleration(sensorEvent),
+        timestamp: DateTime.now());
+  }
+  Movement.fromDigit(
       {required this.userId,
       required this.longitude,
       required this.latitude,
@@ -20,5 +36,13 @@ class Movement {
       'acceleration': acceleration,
       'recorded_at': timestamp.toString()
     };
+  }
+
+  static double _calcAcceleration(SensorEvent sensorEvent) {
+    final x = sensorEvent.data[0];
+    final y = sensorEvent.data[1];
+    final z = sensorEvent.data[2];
+
+    return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
   }
 }
